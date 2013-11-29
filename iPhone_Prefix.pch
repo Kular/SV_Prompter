@@ -1,0 +1,14 @@
+//
+// Prefix header for all source files of the 'iPhone' target in the 'iPhone' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif
+
+#define RETINA_4 568
+#define RETINA_35 480
+#define IPHONE_WIDTH 320
+#define IPAD_WIDTH 768
+#define IPAD_HEIGHT 1024
