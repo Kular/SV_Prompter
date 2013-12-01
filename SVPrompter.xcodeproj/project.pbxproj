@@ -22,6 +22,10 @@
 		72a929d3561b8232a182abfcbb325491 /* ofxOscBundle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65eefa3da3526e9cdd9c21f90d9b5684 /* ofxOscBundle.cpp */; };
 		879a251454401bc0b6e4f238fc63135b /* OscTypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = d9bffbbf4cc43dee890b3c3e8f7d792c /* OscTypes.cpp */; };
 		8f5205aef8861ef234f0651aba6be2ee /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81967292bfc87a0144bd32c66f3adb20 /* ofxOscSender.cpp */; };
+		B57AB6E2184B06C000A81CD0 /* DistanceBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57AB6E0184B06C000A81CD0 /* DistanceBar.cpp */; };
+		B57AB6E5184B06CB00A81CD0 /* MouthPattern.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57AB6E3184B06CB00A81CD0 /* MouthPattern.cpp */; };
+		B57AB6E9184B078600A81CD0 /* ScriptReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57AB6E7184B078600A81CD0 /* ScriptReader.cpp */; };
+		B57AB6EC184B58E000A81CD0 /* PinkBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B57AB6EA184B58E000A81CD0 /* PinkBar.cpp */; };
 		B59C6054184639A0008EBF53 /* OnePair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B59C6052184639A0008EBF53 /* OnePair.cpp */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
@@ -93,6 +97,14 @@
 		8c75afc8774a62495dd5346429f6f666 /* ofxOscReceiver.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscReceiver.h; path = ../../../addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SOURCE_ROOT; };
 		9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscReceivedElements.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.cpp; sourceTree = SOURCE_ROOT; };
 		9f7986dc4eb05e75fce2c777500fdc01 /* ofxOscSender.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscSender.h; path = ../../../addons/ofxOsc/src/ofxOscSender.h; sourceTree = SOURCE_ROOT; };
+		B57AB6E0184B06C000A81CD0 /* DistanceBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DistanceBar.cpp; sourceTree = "<group>"; };
+		B57AB6E1184B06C000A81CD0 /* DistanceBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceBar.h; sourceTree = "<group>"; };
+		B57AB6E3184B06CB00A81CD0 /* MouthPattern.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouthPattern.cpp; sourceTree = "<group>"; };
+		B57AB6E4184B06CB00A81CD0 /* MouthPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouthPattern.h; sourceTree = "<group>"; };
+		B57AB6E7184B078600A81CD0 /* ScriptReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptReader.cpp; sourceTree = "<group>"; };
+		B57AB6E8184B078600A81CD0 /* ScriptReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptReader.h; sourceTree = "<group>"; };
+		B57AB6EA184B58E000A81CD0 /* PinkBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PinkBar.cpp; sourceTree = "<group>"; };
+		B57AB6EB184B58E000A81CD0 /* PinkBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinkBar.h; sourceTree = "<group>"; };
 		B59C6052184639A0008EBF53 /* OnePair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnePair.cpp; sourceTree = "<group>"; };
 		B59C6053184639A0008EBF53 /* OnePair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnePair.h; sourceTree = "<group>"; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -261,9 +273,31 @@
 		B5510021184797DC00D914B9 /* PinkBar */ = {
 			isa = PBXGroup;
 			children = (
+				B57AB6EA184B58E000A81CD0 /* PinkBar.cpp */,
+				B57AB6EB184B58E000A81CD0 /* PinkBar.h */,
 			);
 			name = PinkBar;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		B57AB6DF184B069B00A81CD0 /* MouthMetaphor */ = {
+			isa = PBXGroup;
+			children = (
+				B57AB6E0184B06C000A81CD0 /* DistanceBar.cpp */,
+				B57AB6E1184B06C000A81CD0 /* DistanceBar.h */,
+				B57AB6E3184B06CB00A81CD0 /* MouthPattern.cpp */,
+				B57AB6E4184B06CB00A81CD0 /* MouthPattern.h */,
+			);
+			name = MouthMetaphor;
+			sourceTree = "<group>";
+		};
+		B57AB6E6184B077900A81CD0 /* ScriptReader */ = {
+			isa = PBXGroup;
+			children = (
+				B57AB6E7184B078600A81CD0 /* ScriptReader.cpp */,
+				B57AB6E8184B078600A81CD0 /* ScriptReader.h */,
+			);
+			name = ScriptReader;
 			sourceTree = "<group>";
 		};
 		B59C604E18462D7E008EBF53 /* Script */ = {
@@ -324,6 +358,8 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				B57AB6E6184B077900A81CD0 /* ScriptReader */,
+				B57AB6DF184B069B00A81CD0 /* MouthMetaphor */,
 				B5510021184797DC00D914B9 /* PinkBar */,
 				B59C604E18462D7E008EBF53 /* Script */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
@@ -515,6 +551,10 @@
 				ec26f225d807f4f0694059240bc36eb7 /* ofxThreadedImageLoader.cpp in Sources */,
 				edd3448a1f73bf611f4d46a8e96075c6 /* ofxTrueTypeFontUC.cpp in Sources */,
 				B59C6054184639A0008EBF53 /* OnePair.cpp in Sources */,
+				B57AB6E2184B06C000A81CD0 /* DistanceBar.cpp in Sources */,
+				B57AB6E5184B06CB00A81CD0 /* MouthPattern.cpp in Sources */,
+				B57AB6E9184B078600A81CD0 /* ScriptReader.cpp in Sources */,
+				B57AB6EC184B58E000A81CD0 /* PinkBar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,13 @@
 #include "ofxOsc.h"
 #include "ofxTrueTypeFontUC.h"
 
+#include "OnePair.h"
+#include "ScriptReader.h"
+#include "MouthPattern.h"
+#include "PinkBar.h"
+
+#define PORT 8000
+
 class testApp : public ofxiPhoneApp{
 	
 public:
@@ -27,7 +34,7 @@ public:
     void deviceOrientationChanged(int newOrientation);
   
 private:
-    ofxOscReceiver *receiver;
+    ofxOscReceiver receiver;
     
     int count;
     
@@ -35,15 +42,24 @@ private:
     int countDown;
     float countDownRate;
     
-    bool bDetected;
-    
     ofxTrueTypeFontUC okLabel, waitLabel;
-    
-    float wDis, hDis;
+
     
     bool bisReady;
 
     ofImage waveImg;
+    
+    deque<OnePair>scriptToShow;
+    deque<OnePair>sentencesReceived;
+    
+    ScriptReader reader;
+    
+    MouthPattern mouthPattern;
+    float wDis, hDis;
+    bool bDetected;
+    
+    PinkBar pinkBar;
+    float position;
 };
 
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>819B4274-473B-40A5-82EC-80B88FF8491F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SVPrompter</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>183CC569-2ADE-4189-AED2-A6424E57F2BE</key>
+		<string>https://github.com/hironishihara/ofxTrueTypeFontUC.git</string>
+		<key>9AF4D3EF-69F6-456C-836F-7E872FA24A38</key>
+		<string>https://github.com/Kular/SV_Prompter.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SVPrompter.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>183CC569-2ADE-4189-AED2-A6424E57F2BE</key>
+		<string>../../../../../addons/ofxTrueTypeFontUC</string>
+		<key>9AF4D3EF-69F6-456C-836F-7E872FA24A38</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Kular/SV_Prompter.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9AF4D3EF-69F6-456C-836F-7E872FA24A38</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>183CC569-2ADE-4189-AED2-A6424E57F2BE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxTrueTypeFontUC</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9AF4D3EF-69F6-456C-836F-7E872FA24A38</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SV_Prompter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

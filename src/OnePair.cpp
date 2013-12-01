@@ -9,7 +9,14 @@
 #include "OnePair.h"
 #include "ofxTrueTypeFontUC.h"
 
-ofxTrueTypeFontUC font;
+#define COMMON_MARGIN 50
+#define MARGIN_BETWEEN 15
+#define WAVE_Y 300
+#define PAIR_HEIGHT 200
+
+
+ofxTrueTypeFontUC fontForScript;
+ofxTrueTypeFontUC fontForTranslation;
 
 OnePair::OnePair()
 {
@@ -23,34 +30,112 @@ OnePair::~OnePair()
     
 }
 
+float OnePair::getBaseY()
+{
+    return baseY;
+}
+
 void OnePair::setFont(string fontName)
 {
-    font.loadFont(fontName, 40);
+    fontForScript.loadFont(fontName, 40);
+    fontForTranslation.loadFont(fontName, 30);
 }
 
 void OnePair::setScriptAndTranslation(string aSentence, string aTranslation)
 {
-    words1 = aSentence;
-    rect1 = font.getStringBoundingBox(aSentence, 0, 0);
-    pos1.x = (IPAD_HEIGHT - rect1.width) / 2.f;
-    pos1.y = IPAD_WIDTH; // set for status: outOfScreen
-    
-    words2 = aTranslation;
-    rect1 = font.getStringBoundingBox(aTranslation, 0, 0);
-    pos1.x = (IPAD_HEIGHT - rect2.width) / 2.f;
-    pos1.y = pos1.y + rect1.height; // set for status: outOfScreen
+    script = aSentence;
+    rectOfScript = fontForScript.getStringBoundingBox(aSentence, 0, 0);
+    posOfScript.x = (IPAD_HEIGHT - rectOfScript.width) / 2.f;
     
     
+    translation = aTranslation;
+    rectOfTranslation = fontForTranslation.getStringBoundingBox(aTranslation, 0, 0);
+    posOfTranslation.x = (IPAD_HEIGHT - rectOfTranslation.width) / 2.f;
+    
+    
+    setBaseY(IPAD_WIDTH);
 }
+
+void OnePair::setBaseY(float y)
+{
+    baseY = y;
+    posOfScript.y = baseY + COMMON_MARGIN + rectOfScript.height; // set for status: outOfScreen
+    posOfTranslation.y = posOfScript.y + MARGIN_BETWEEN +  rectOfTranslation.height; // set for status: outOfScreen
+}
+
 
 void OnePair::setStatus(int theStatus)
 {
     switch (theStatus) {
-        case 1:
-            ;
+            
+        case 3: {
+            status = outOfScreen;
+            setBaseY(IPAD_HEIGHT);
+        } break;
+            
+        case 2: {
+            status = readyToShow;
+            setBaseY((IPAD_WIDTH - WAVE_WIDTH)/2 + WAVE_WIDTH);
+        } break;
+            
+        case 1: {
+            status = showing;
+            setBaseY(0);
+        } break;
+            
+        case 0: {
+            status = afterShown;
+            setBaseY(0 - PAIR_HEIGHT);
+        } break;
+            
+        default:
+        break;
+    }
+}
+
+void OnePair::nextStatus()
+{
+    switch (status) {
+        case outOfScreen:
+            status = readyToShow;
+            break;
+        case readyToShow:
+            status = showing;
+            break;
+        case showing:
+            status = afterShown;
             break;
             
         default:
             break;
     }
+}
+
+void OnePair::update(float x)
+{
+    float y = baseY;
+    switch (status) {
+        case outOfScreen: {
+            y -= (baseY - (IPAD_WIDTH - WAVE_WIDTH)/2 + WAVE_WIDTH) / x;
+            setBaseY(y);
+        } break;
+        case readyToShow: {
+            y -= (baseY - 0) / x;
+            setBaseY(y);
+        } break;
+        case showing: {
+            y -= (baseY - (0 - PAIR_HEIGHT)) / x;
+            setBaseY(y);
+        } break;
+        default: {
+            // after shown
+        } break;
+    }
+}
+
+void OnePair::draw()
+{
+    ofSetColor(r, g, b, alpha);
+    fontForScript.drawString(script, posOfScript.x, posOfScript.y);
+    fontForTranslation.drawString(script, posOfTranslation.x, posOfTranslation.y);
 }

@@ -27,28 +27,34 @@ public:
     OnePair();
     ~OnePair();
     
-    void update();
+    void update(float x);
+    void draw();
+    
     void setScriptAndTranslation(string aSentence, string aTranslation);
     
-    void draw();
     void setStatus(int theStatus);
     
     void setFont(string fontName);
 
-    ofVec2f getPos();
+    float getBaseY();
+    
+    void nextStatus();
+    void setBaseY(float y);
 
 private:
 
     int r, g, b, alpha;
 
-    string words1;
-    string words2;
+    string script;
+    string translation;
+    
+    float baseY;
 
-    ofVec2f pos1;
-    ofVec2f pos2;
+    ofVec2f posOfScript;
+    ofVec2f posOfTranslation;
 
-    ofRectangle rect1;
-    ofRectangle rect2;
+    ofRectangle rectOfScript;
+    ofRectangle rectOfTranslation;
 
     statusType status;
 

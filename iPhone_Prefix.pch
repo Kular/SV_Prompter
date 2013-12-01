@@ -12,3 +12,5 @@
 #define IPHONE_WIDTH 320
 #define IPAD_WIDTH 768
 #define IPAD_HEIGHT 1024
+
+#define WAVE_WIDTH 368
