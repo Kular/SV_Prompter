@@ -14,6 +14,12 @@
 #define WAVE_Y 300
 #define PAIR_HEIGHT 200
 
+#define Y_OUTOFSCREEN 768
+#define Y_READYTOSHOW (IPAD_WIDTH - WAVE_WIDTH)/2 + WAVE_WIDTH
+#define Y_SHOWING 0
+#define Y_AFTERSHOWN -200
+
+
 
 ofxTrueTypeFontUC fontForScript;
 ofxTrueTypeFontUC fontForTranslation;
@@ -113,29 +119,69 @@ void OnePair::nextStatus()
 
 void OnePair::update(float x)
 {
-    float y = baseY;
+    float y;
+    switch (status) {
+        case outOfScreen:
+            y = Y_OUTOFSCREEN;
+            break;
+        case readyToShow: {
+            y = Y_READYTOSHOW;
+        }
+            break;
+        case showing:
+            y = Y_SHOWING;
+            break;
+            
+        default:
+            y = Y_AFTERSHOWN;
+            break;
+    }
+
+//    switch (status) {
+//        case outOfScreen: {
+//            y -= (baseY - (IPAD_WIDTH - WAVE_WIDTH)/2 + WAVE_WIDTH) / x;
+//            setBaseY(y);
+//        } break;
+//        case readyToShow: {
+//            y -= (baseY - 0) / x;
+//            std::cout<<"y: "<<y<<endl;
+//            setBaseY(y);
+//        } break;
+//        case showing: {
+//            y -= (baseY - (0 - PAIR_HEIGHT)) / x;
+//            setBaseY(y);
+//        } break;
+//        default: {
+//            // after shown
+//        } break;
+//    }
+
     switch (status) {
         case outOfScreen: {
-            y -= (baseY - (IPAD_WIDTH - WAVE_WIDTH)/2 + WAVE_WIDTH) / x;
+            y -= (Y_OUTOFSCREEN - Y_READYTOSHOW) / x;
             setBaseY(y);
         } break;
         case readyToShow: {
-            y -= (baseY - 0) / x;
+            y -= (Y_READYTOSHOW - Y_SHOWING) / x;
+            std::cout<<"=>"<<(Y_READYTOSHOW - Y_SHOWING) / x<<endl;
+            std::cout<<"y: "<<y<<endl;
             setBaseY(y);
         } break;
         case showing: {
-            y -= (baseY - (0 - PAIR_HEIGHT)) / x;
+            y -= (Y_SHOWING - Y_AFTERSHOWN) / x;
             setBaseY(y);
         } break;
         default: {
             // after shown
         } break;
     }
+    
+    
 }
 
 void OnePair::draw()
 {
     ofSetColor(r, g, b, alpha);
     fontForScript.drawString(script, posOfScript.x, posOfScript.y);
-    fontForTranslation.drawString(script, posOfTranslation.x, posOfTranslation.y);
+    fontForTranslation.drawString(translation, posOfTranslation.x, posOfTranslation.y);
 }

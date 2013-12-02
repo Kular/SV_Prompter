@@ -24,11 +24,16 @@ public:
     
     void readTXT(string url);
     
+    void readTXTWithoutReturn(string url);
+    
     vector<string> getContents();
+    
+    vector<string> getNewContents();
     
 private:
     
     ofBuffer buffer;
     
     vector<string> lines;
+    vector<string> newLines;
 };

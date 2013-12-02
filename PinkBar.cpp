@@ -27,7 +27,7 @@ void PinkBar::update(float rate)
     } else if (rate == 1){
         pos.x = 0;
     } else {
-        pos.x = rate * IPAD_HEIGHT;
+        pos.x = (1 - rate) * IPAD_HEIGHT;
     }
 }
 

@@ -17,77 +17,153 @@ void testApp::setup(){
     okLabel.loadFont("kagami-pgoth-h.ttf", 30);
     waitLabel.loadFont("kagami-pgoth-h.ttf", 60);
 
-    waveImg.loadImage("wave.png");
+    waveImg1.loadImage("wave_sheldon.png");
+    waveImg2.loadImage("wave_taki.png");
     
-    bisReady = true;
+    bisReady = false;
     bDetected = false;
     
-    reader.readTXT("sheldonScript.txt");
-    vector<string> tmpSentencs;
-    tmpSentencs = reader.getContents();
-    for (int i = 0; i < tmpSentencs.size(); i++) {
-        OnePair tmpPair;
-        tmpPair.setFont("kagami-pgoth-h.ttf");
-        tmpPair.setScriptAndTranslation(tmpSentencs.at(i), tmpSentencs.at(i));
-        sentencesReceived.push_back(tmpPair);
-    }
+//    reader.readTXT("sheldonScript.txt");
+//    vector<string> tmpSentencs;
+//    tmpSentencs = reader.getNewContents();
+//    for (int i = 0; i < tmpSentencs.size(); i++) {
+//        OnePair tmpPair;
+//        tmpPair.setFont("kagami-pgoth-h.ttf");
+//        tmpPair.setScriptAndTranslation(tmpSentencs.at(i), tmpSentencs.at(i));
+//        sentencesReceived.push_back(tmpPair);
+//    }
     
     count = 0;
     
     position = 1024;
     
+    waveNo = 0;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-
-    if (scriptToShow.size() < 4) {
-        if (sentencesReceived.size() > 0) {
-            scriptToShow.push_back(sentencesReceived.at(0));
-            sentencesReceived.pop_front();
+    
+    // OSC stuffs
+    while(receiver.hasWaitingMessages()){
+        
+        ofxOscMessage m;
+        receiver.getNextMessage(&m);
+        
+        if (m.getAddress() == "/go"){
+            if (scriptToShow.size() > 2) {
+                scriptToShow.pop_front();
+                count = 4;
+            }
+        } else if (m.getAddress() == "/playOrPause" && bisReady){
+            if (m.getArgAsInt32(0) == 1) {
+                bShoudSpeak = true;
+            } else {
+                bShoudSpeak = false;
+            }
+            
+        } else if (m.getAddress() == "/detected") {
+            if (m.getArgAsInt32(0) == 1) {
+                bDetected = true;
+            } else {
+                bDetected = false;
+            }
+        } else if (m.getAddress() == "/distance") {
+            wDis = m.getArgAsFloat(0);
+            hDis = m.getArgAsFloat(1);
+            
+        } else if (m.getAddress() == "/time") {
+            countDownRate = m.getArgAsFloat(0);
+            
+            countDown *= countDownRate;
+            
+        } else if (m.getAddress() == "/sentences") {
+            
+            OnePair tmpPair;
+            tmpPair.setFont("kagami-pgoth-h.ttf");
+            tmpPair.setScriptAndTranslation(m.getArgAsString(0), m.getArgAsString(1));
+             std::cout<<"m.getArgAsString(0): "<<m.getArgAsString(0)<<" m.getArgAsString(1)"<<m.getArgAsString(1)<<endl;
+            sentencesReceived.push_back(tmpPair);
+            
+            if (scriptToShow.size() < 4) {
+                scriptToShow.push_back(sentencesReceived.at(0));
+                sentencesReceived.pop_front();
+//            } else if (!bisReady){
+//                for (int i = 0; i < scriptToShow.size(); i++) {
+//                    scriptToShow.at(i).setStatus(i);
+//                }
+//                bisReady = true;
+//            }
+            } else {
+                bisReady = true;
+            }
+            
+        } else if (m.getAddress() == "/position") {
+            position = m.getArgAsFloat(0);
+        } else if (m.getAddress() == "/wave") {
+            waveNo = m.getArgAsInt32(0);
+        }
+        
+    }
+    // end OSC
+    
+    if (bisReady) {
+        if (scriptToShow.size() < 4) {
+            if (sentencesReceived.size() > 0) {
+                scriptToShow.push_back(sentencesReceived.at(0));
+                sentencesReceived.pop_front();
+            } else {
+                for (int i = 0; i < scriptToShow.size(); i++) {
+                    scriptToShow.at(i).setStatus(i);
+                }
+            }
         } else {
             for (int i = 0; i < scriptToShow.size(); i++) {
                 scriptToShow.at(i).setStatus(i);
             }
         }
-    } else {
-        for (int i = 0; i < scriptToShow.size(); i++) {
-            scriptToShow.at(i).setStatus(i);
-        }
-    }
-    
-    if (count > 0) {
         
-        for (int i = 0; i < scriptToShow.size(); i++) {
-            scriptToShow.at(i).update(4);
+        if (count > 0) {
+            
+            for (int i = 0; i < scriptToShow.size(); i++) {
+                scriptToShow.at(i).update(40.0);
+            }
+            count--;
+            
         }
-        count--;
-
+        
+        // when detected, show mouth width & height
+        mouthPattern.update(wDis, hDis);
+        
+        // pink bar
+        pinkBar.update(position);
     }
-    
-    // when detected, show mouth width & height
-    mouthPattern.update(wDis, hDis);
-    
-    // pink bar
-    pinkBar.updateByTouch(position);
 
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
     
-    ofCircle(0, IPAD_WIDTH, 100);
-
     if (!bisReady) {
         waitLabel.drawString("中信通", 400, 400);
     } else {
-        
+        ofSetColor(255, 255, 255);
         for (int i = 0; i < scriptToShow.size(); i++) {
             scriptToShow.at(i).draw();
         }
         
         // wave form
-        waveImg.draw(0, (IPAD_WIDTH - WAVE_WIDTH)/2, IPAD_HEIGHT, WAVE_WIDTH);
+        switch (waveNo) {
+            case 0:
+                waveImg1.draw(0, (IPAD_WIDTH - WAVE_WIDTH)/2, IPAD_HEIGHT, WAVE_WIDTH);
+                break;
+            case 1:
+                waveImg2.draw(0, (IPAD_WIDTH - WAVE_WIDTH)/2, IPAD_HEIGHT, WAVE_WIDTH);
+                break;
+                
+            default:
+                break;
+        }
+        
         
         // pink bar
         pinkBar.draw();
@@ -120,7 +196,7 @@ void testApp::touchMoved(ofTouchEventArgs & touch){
 void testApp::touchUp(ofTouchEventArgs & touch){
     if (scriptToShow.size() > 2 && count == 0) {
         scriptToShow.pop_front();
-        count = 4;
+        count = 40;
     }
     
 }

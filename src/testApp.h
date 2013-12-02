@@ -47,7 +47,9 @@ private:
     
     bool bisReady;
 
-    ofImage waveImg;
+    ofImage waveImg1, waveImg2;
+    int waveNo;
+    
     
     deque<OnePair>scriptToShow;
     deque<OnePair>sentencesReceived;
